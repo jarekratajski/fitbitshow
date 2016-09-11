@@ -1,0 +1,13 @@
+### Scala template
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+### Scala template
+*.iml
+.idea/
