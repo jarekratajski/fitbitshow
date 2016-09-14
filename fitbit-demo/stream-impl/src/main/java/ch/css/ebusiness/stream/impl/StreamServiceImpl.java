@@ -5,9 +5,9 @@ package ch.css.ebusiness.stream.impl;
 
 import akka.NotUsed;
 import akka.stream.javadsl.Source;
-import com.lightbend.lagom.javadsl.api.ServiceCall;
 import ch.css.ebusiness.hello.api.HelloService;
 import ch.css.ebusiness.stream.api.StreamService;
+import com.lightbend.lagom.javadsl.api.ServiceCall;
 
 import javax.inject.Inject;
 
@@ -18,16 +18,16 @@ import static java.util.concurrent.CompletableFuture.completedFuture;
  */
 public class StreamServiceImpl implements StreamService {
 
-  private final HelloService helloService;
+    private final HelloService helloService;
 
-  @Inject
-  public StreamServiceImpl(HelloService helloService) {
-    this.helloService = helloService;
-  }
+    @Inject
+    public StreamServiceImpl(HelloService helloService) {
+        this.helloService = helloService;
+    }
 
-  @Override
-  public ServiceCall<Source<String, NotUsed>, Source<String, NotUsed>> stream() {
-    return hellos -> completedFuture(
-        hellos.mapAsync(8, name -> helloService.hello(name).invoke()));
-  }
+    @Override
+    public ServiceCall<Source<String, NotUsed>, Source<String, NotUsed>> stream() {
+        return hellos -> completedFuture(
+                hellos.mapAsync(8, name -> helloService.hello(name).invoke()));
+    }
 }

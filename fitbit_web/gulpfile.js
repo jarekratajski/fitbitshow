@@ -14,7 +14,7 @@ var open = require('open');
 var connectLr = require('connect-livereload');
 var targetDir = "./build";
 
-require('events').EventEmitter.prototype._maxListeners = 500;
+require('events').EventEmitter.prototype._maxListeners = 1500;
 
 
 var errorHandler = function(error) {
@@ -68,26 +68,31 @@ gulp.task('watch', function () {
   gulp.watch('src/**/*.html', ['html']);
   gulp.watch('src/**/*.css', ['css']);
   gulp.watch('src/**/*.less', ['less']);
-  gulp.watch(['src/**/*.png','src/**/*.jpg'], ['less']);
+  gulp.watch('src/images/*', ['images']);
+  gulp.watch(['src/**/*.png','src/**/*.jpg'], ['images']);
 
-  gulp.watch(targetDir + "/**")
+  gulp.watch(targetDir +"/templates/**")
     .on('change', plugins.livereload.changed)
     .on('error', errorHandler);
+
+  gulp.watch(targetDir +"/css/**")
+      .on('change', plugins.livereload.changed)
+      .on('error', errorHandler);
+
+  gulp.watch(targetDir +"/images/**")
+      .on('change', plugins.livereload.changed)
+      .on('error', errorHandler);
+
+  gulp.watch(targetDir +"/transpiled/**")
+      .on('change', plugins.livereload.changed)
+      .on('error', errorHandler);
 });
 
 // move dependencies into build dir
 gulp.task('dependencies', function () {
   return gulp.src([
-    'node_modules/traceur/bin/traceur-runtime.js',
-    'node_modules/systemjs/dist/system-csp-production.src.js',
-    'node_modules/systemjs/dist/system.js',
-    'node_modules/reflect-metadata/Reflect.js',
-    'node_modules/angular2/bundles/angular2.js',
-    'node_modules/angular2/bundles/http.js',
-    'node_modules/angular2/bundles/angular2-polyfills.js',
-    'node_modules/rxjs/bundles/Rx.js',
-    'node_modules/es6-shim/es6-shim.min.js',
-    'node_modules/es6-shim/es6-shim.map'
+    'node_modules/**/*.js',
+      'systemjs.config.js'
   ])
     .pipe(gulp.dest('build/lib'));
 });

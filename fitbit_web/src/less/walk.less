@@ -1,0 +1,268 @@
+#canvas {
+  height: 600px;
+  width: 760px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+#canvas div {
+  position: absolute;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+#canvas:target div:not(.overlay) {
+  border: 1px solid black;
+}
+
+#canvas:target div.me div{
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.me {
+  top: 50px; left: 350px;
+  animation-name: me;
+}
+
+.me, .me div {
+  background-repeat: no-repeat;
+
+  animation-duration: 1750ms;
+}
+
+.torso {
+  width: 86px; height: 275px;
+  background-image: url(../images/me/torso.png);
+}
+
+.arm {
+  left: 12px;
+  transform-origin: 20px 10px;
+}
+
+.right.arm {
+  top: 93px;
+  animation-name: right-bicep;
+}
+.left.arm {
+  top: 87px;
+  animation-name: left-bicep;
+}
+
+.bicep {
+  height: 124px; width: 51px;
+}
+
+.right.bicep { background-image: url(../images/me/right-bicep.png); }
+.left.bicep { background-image: url(../images/me/left-bicep.png); }
+
+.forearm {
+  top: 108px; left: 14px;
+  width: 36px; height: 121px;
+  transform-origin: 3px 7px;
+}
+
+.right.forearm {
+  background-image: url(../images/me/right-forearm.png);
+  animation-name: right-forearm;
+}
+
+.left.forearm {
+  background-image: url(../images/me/left-forearm.png);
+  animation-name: left-forearm;
+}
+
+.leg {
+  left: 6px;
+  transform-origin: 30px 20px;
+  animation-name: thigh;
+}
+
+.right.leg {
+  top: 235px;
+  animation-name: right-thigh;
+}
+
+.left.leg {
+  top: 225px;
+  animation-name: left-thigh;
+}
+
+.thigh {
+  width: 70px; height: 145px;
+}
+
+.left.thigh { background-image: url(../images/me/left-thigh.png); }
+.right.thigh { background-image: url(../images/me/right-thigh.png); }
+
+.shin {
+  top: 115px;
+  width: 50px; height: 170px;
+  background-image: url(../images/me/shin.png);
+  transform-origin: 30px 25px;
+}
+
+.right.shin {
+  animation-name: right-shin;
+}
+.left.shin {
+  animation-name: left-shin;
+}
+
+.foot {
+  top: 155px; left: 2px;
+  width: 67px; height: 34px;
+  background-image: url(../images/me/foot.png);
+  transform-origin: 0 50%;
+}
+
+.right.foot {
+  animation-name: right-foot;
+}
+.left.foot {
+  animation-name: left-foot;
+}
+
+.toes {
+  top: 9px; left: 66px;
+  width: 28px; height: 25px;
+  background-image: url(../images/me/toes.png);
+  transform-origin: 0% 100%;
+}
+
+.right.toes {
+  animation-name: right-toes;
+}
+.left.toes {
+  animation-name: left-toes;
+}
+
+
+
+/* setting proper z-indexes so that limbs show up correctly */
+
+div.right.arm { z-index: 1; }
+div.left.arm { z-index: -3; }
+div.arm > div.bicep > div.forearm { z-index: -1; }
+
+div.right.leg { z-index: -1; }
+div.left.leg { z-index: -2; }
+div.leg > div.thigh > div.shin { z-index: -1; }
+
+
+@keyframes me {
+  0% { transform:   rotate(5deg) translate( 5px,   0px); }
+  25% { transform:  rotate(5deg) translate(-5px, -14px); }
+  50% { transform:  rotate(5deg) translate( 5px,   0px); }
+  75% { transform:  rotate(5deg) translate(-5px, -14px); }
+  100% { transform: rotate(5deg) translate( 5px,   0px); }
+}
+
+@keyframes right-bicep {
+  0%   { transform: rotate(26deg); }
+  50%  { transform: rotate(-20deg); }
+  100% { transform: rotate(26deg); }
+}
+
+@keyframes left-bicep {
+  0%   { transform: rotate(-20deg); }
+  50%  { transform: rotate(26deg); }
+  100% { transform: rotate(-20deg); }
+}
+
+@keyframes right-forearm {
+  0%   { transform: rotate(-10deg); }
+  50%  { transform: rotate(-45deg); }
+  100% { transform: rotate(-10deg); }
+}
+
+@keyframes left-forearm {
+  0%   { transform: rotate(-45deg); }
+  50%  { transform: rotate(-10deg); }
+  100% { transform: rotate(-45deg); }
+}
+
+@keyframes right-thigh {
+  0%   { transform: rotate(-45deg); }
+  50%  { transform: rotate(10deg); }
+  100% { transform: rotate(-45deg); }
+}
+
+@keyframes left-thigh {
+  0%   { transform: rotate(10deg); }
+  50%  { transform: rotate(-45deg); }
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes right-shin {
+  0%   { transform: rotate(30deg); }
+  25%  { transform: rotate(20deg); }
+  50%  { transform: rotate(20deg); }
+  75%  { transform: rotate(85deg); }
+  100% { transform: rotate(30deg); }
+}
+
+@keyframes left-shin {
+  0%   { transform: rotate(20deg); }
+  25%  { transform: rotate(85deg); }
+  50%  { transform: rotate(30deg); }
+  75%  { transform: rotate(20deg); }
+  100% { transform: rotate(20deg); }
+}
+
+@keyframes right-foot {
+  0%   { transform: rotate(-5deg); }
+  25%  { transform: rotate(-7deg); }
+  50%  { transform: rotate(-16deg); }
+  75%  { transform: rotate(-10deg); }
+  100% { transform: rotate(-5deg); }
+}
+
+@keyframes left-foot {
+  0%   { transform: rotate(-16deg); }
+  25%  { transform: rotate(-10deg); }
+  50%  { transform: rotate(-5deg); }
+  75%  { transform: rotate(-7deg); }
+  100% { transform: rotate(-16deg); }
+}
+
+@keyframes right-toes {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-10deg); }
+  50%  { transform: rotate(-10deg); }
+  75%  { transform: rotate(-25deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes left-toes {
+  0%   { transform: rotate(-10deg); }
+  25%  { transform: rotate(-25deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(-10deg); }
+  100% { transform: rotate(-10deg); }
+}
+
+@keyframes shadow {
+  0%   { opacity: 1; }
+  25%  { opacity: 0.75; }
+  50%  { opacity: 1; }
+  75%  { opacity: 0.75; }
+  100% { opacity: 1; }
+}
+
+@keyframes prop-600 {
+  0%   { transform: translateX(0px); }
+  100% { transform: translateX(-600px); }
+}
+
+@keyframes prop-1200 {
+  0%   { transform: translateX(0px); }
+  100% { transform: translateX(-1200px); }
+}
+
+@keyframes prop-2000 {
+  0%   { transform: translateX(0px); }
+  100% { transform: translateX(-2000px); }
+}

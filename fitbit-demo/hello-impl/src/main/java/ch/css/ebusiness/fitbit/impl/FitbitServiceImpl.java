@@ -96,7 +96,7 @@ public class FitbitServiceImpl implements FitbitService {
 
 
     @Override
-    public ServiceCall<NotUsed, Option<FitbitData>> getData() {
+    public ServiceCall<NotUsed, Either<String, FitbitData>> getData() {
         return request -> {
 
             PersistentEntityRef<FitbitTokenCommand> ref = persistentEntityRegistry.refFor(FitbitTokenEntity.class, "default");

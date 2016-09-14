@@ -3,14 +3,13 @@
  */
 package ch.css.ebusiness.stream.api;
 
-import static com.lightbend.lagom.javadsl.api.Service.named;
-import static com.lightbend.lagom.javadsl.api.Service.namedCall;
-
 import akka.NotUsed;
 import akka.stream.javadsl.Source;
 import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
+
+import static com.lightbend.lagom.javadsl.api.Service.*;
 
 /**
  * The stream interface.
@@ -20,11 +19,11 @@ import com.lightbend.lagom.javadsl.api.ServiceCall;
  */
 public interface StreamService extends Service {
 
-  ServiceCall<Source<String, NotUsed>, Source<String, NotUsed>> stream();
+    ServiceCall<Source<String, NotUsed>, Source<String, NotUsed>> stream();
 
-  @Override
-  default Descriptor descriptor() {
-    return named("stream").withCalls(namedCall("stream", this::stream))
-      .withAutoAcl(true);
-  }
+    @Override
+    default Descriptor descriptor() {
+        return named("stream").withCalls(namedCall("stream", this::stream))
+                .withAutoAcl(true);
+    }
 }

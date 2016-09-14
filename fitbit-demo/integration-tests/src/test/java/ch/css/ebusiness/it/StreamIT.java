@@ -1,27 +1,23 @@
 package ch.css.ebusiness.it;
 
 import akka.actor.ActorSystem;
-import akka.japi.Effect;
 import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
+import ch.css.ebusiness.hello.api.GreetingMessage;
+import ch.css.ebusiness.hello.api.HelloService;
+import ch.css.ebusiness.stream.api.StreamService;
 import com.lightbend.lagom.javadsl.client.integration.LagomClientFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ch.css.ebusiness.stream.api.StreamService;
-import ch.css.ebusiness.hello.api.GreetingMessage;
-import ch.css.ebusiness.hello.api.HelloService;
 
-import java.io.File;
 import java.net.URI;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -80,8 +76,6 @@ public class StreamIT {
             system.terminate();
         }
     }
-
-
 
 
 }

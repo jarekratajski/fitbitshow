@@ -9,16 +9,16 @@ import javax.annotation.concurrent.Immutable;
 
 public interface FitbitTokenEvent extends Jsonable {
 
-   @SuppressWarnings("serial")
-   @Immutable
-   @JsonDeserialize
-   public final class FitbitTokenChanged implements FitbitTokenEvent {
-      public final OauthTokenPair token;
+    @SuppressWarnings("serial")
+    @Immutable
+    @JsonDeserialize
+    public final class FitbitTokenChanged implements FitbitTokenEvent {
+        public final OauthTokenPair token;
 
 
-      @JsonCreator
-      public FitbitTokenChanged(OauthTokenPair token) {
-         this.token = token;
-      }
-   }
+        @JsonCreator
+        public FitbitTokenChanged(OauthTokenPair token) {
+            this.token = token;
+        }
+    }
 }

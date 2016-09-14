@@ -8,12 +8,12 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 @JsonDeserialize
 public class OauthTokenPair {
-   public final String token;
-   public final String refreshToken;
+    public final String token;
+    public final String refreshToken;
 
-   @JsonCreator
-   public OauthTokenPair(String token, String refreshToken) {
-      this.token = token;
-      this.refreshToken = refreshToken;
-   }
+    @JsonCreator
+    public OauthTokenPair(String token, String refreshToken) {
+        this.token = token;
+        this.refreshToken = refreshToken;
+    }
 }
