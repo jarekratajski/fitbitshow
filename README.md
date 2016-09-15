@@ -29,3 +29,10 @@ Replace in sources text *27S5Y* with your application ID.
 
 
 
+## Disclaimer
+For walking man animation I used great tutorial and sample code from :
+Andre Hoyer
+https://github.com/ndrwhr/css3-walking-man
+(LICENSE MIT)
+
+
