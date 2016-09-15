@@ -75,19 +75,19 @@ public class FitbitServiceImpl implements FitbitService {
     public ServerServiceCall<NotUsed, String> after(String code) {
         return HeaderServiceCall.of(
                 (requestHeader, notUsed) -> {
-                    System.out.println("code is " + code);
+
                     ResponseHeader responseHeader = ResponseHeader.OK
                             .withStatus(302)
                             .withHeader("Location", "/index.html");
                     final Either<String, OAuth2AccessToken> token = fitbit.getToken(code);
-                    System.out.println("token:" + token);
+
                     token.forEach(pair -> {
-                        System.out.println("making pair" + pair);
+
                         PersistentEntityRef<FitbitTokenCommand> ref = persistentEntityRegistry.refFor(FitbitTokenEntity.class, "default");
                         ref.ask(new FitbitTokenCommand.TokenChanged(new OauthTokenPair(pair.getAccessToken(), pair
                                 .getRefreshToken())));
                     });
-                    return completedFuture(Pair.create(responseHeader, "kuku"));
+                    return completedFuture(Pair.create(responseHeader, "it is ok - you will be redirected"));
                 }
         );
 

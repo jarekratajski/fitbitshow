@@ -105,11 +105,10 @@ public class FitbitConnector {
                 return Either.right(allElems
                         .map(JsonElement::getAsJsonObject)
                         .map(elem -> elem.getAsJsonPrimitive("value").getAsInt())
-                        .takeRight(50));
+                        .takeRight(60));
             } else {
                 return Either.left("no data from Server - possibly invalid token");
             }
-
 
         } catch (final IOException e) {
             logger.warn(e.getMessage(), e);
