@@ -14,7 +14,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javaslang.collection.List;
 import javaslang.control.Either;
-import javaslang.control.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +37,7 @@ public class FitbitConnector {
     public FitbitConnector() {
         final InputStream fitbitConf = getClass().getResourceAsStream("/fitbit.properties");
 
-        if ( fitbitConf != null) {
+        if (fitbitConf != null) {
             final Properties props = new Properties();
             try {
                 props.load(fitbitConf);
@@ -76,15 +75,15 @@ public class FitbitConnector {
         }
     }
 
-    public List<Integer> getHr(String token) {
-            return getActivities(token, "/1/user/-/activities/heart/date/today/1d/1min.json", "activities-heart-intraday");
+    public Either<String, List<Integer>> getHr(String token) {
+        return getActivities(token, "/1/user/-/activities/heart/date/today/1d/1min.json", "activities-heart-intraday");
     }
 
-    public List<Integer> getSteps(String token) {
+    public Either<String, List<Integer>> getSteps(String token) {
         return getActivities(token, "/1/user/-/activities/steps/date/today/1d/1min.json", "activities-steps-intraday");
     }
 
-    private List<Integer> getActivities(String token, String url, String extractValue) {
+    private Either<String, List<Integer>> getActivities(String token, String url, String extractValue) {
         final OAuthRequest req = new OAuthRequest(Verb.GET, api.HOST +
                 url,
                 service);
@@ -100,17 +99,21 @@ public class FitbitConnector {
             JsonParser parser = new JsonParser();
             JsonElement json = parser.parse(result);
             JsonObject activities = json.getAsJsonObject().getAsJsonObject(extractValue);
-            JsonArray array = activities.getAsJsonArray("dataset");
-            List<JsonElement> allElems = List.ofAll(array);
-            return allElems
-                    .map( JsonElement::getAsJsonObject)
-                    .map( elem -> elem.getAsJsonPrimitive("value").getAsInt())
-                    .takeRight(50);
+            if (activities != null) {
+                JsonArray array = activities.getAsJsonArray("dataset");
+                List<JsonElement> allElems = List.ofAll(array);
+                return Either.right(allElems
+                        .map(JsonElement::getAsJsonObject)
+                        .map(elem -> elem.getAsJsonPrimitive("value").getAsInt())
+                        .takeRight(50));
+            } else {
+                return Either.left("no data from Server - possibly invalid token");
+            }
 
 
         } catch (final IOException e) {
-            logger.warn(e.getMessage(),e);
-            return List.empty();
+            logger.warn(e.getMessage(), e);
+            return Either.left(e.getMessage());
         }
     }
 

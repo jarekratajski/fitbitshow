@@ -47,10 +47,10 @@ public class GetFitbitDataCommandHandler implements
 
     private FitbitCallResult getFitbiData(final OauthTokenPair tokenPair) {
         System.out.println("get steps?");
-        final List<Integer> heartRate = fitbit.getHr(tokenPair.token);
-        final List<Integer> steps = fitbit.getSteps(tokenPair.token);
-        final Either<String, FitbitData> fd = Either.right(
-                new FitbitData(heartRate, steps, List.empty(), List.empty()));
+        final Either<String, List<Integer>> heartRate = fitbit.getHr(tokenPair.token);
+        final Either<String, List<Integer>> steps = fitbit.getSteps(tokenPair.token);
+        final Either<String, FitbitData> fd =  heartRate.flatMap( hr ->  steps.map(st -> new FitbitData(hr, st, List.empty(), List.empty())));
+
 
         return new FitbitCallResult(fd, Option.none());
     }

@@ -13,6 +13,7 @@ export class FitbitDemo {
     hr: number = 0;
     pulse: Array<number> = [];
     animSpeed: string = "1.00";
+    totalSteps: number = 15;
 
     @ViewChild(WalkSample)
     private walkAnimation : WalkSample;
@@ -29,9 +30,11 @@ export class FitbitDemo {
     this.http.get("/services/token").subscribe(
         res => {
             console.log(res);
-
-            this.tokenRegistered = (res.json()['token'] != null);
-            this.getData();
+            const incomingJson = res.json();
+            if ( incomingJson != null) {
+                this.tokenRegistered = (res.json()['token'] != null);
+                this.getData();
+            }
         }
     );
   }
@@ -51,12 +54,13 @@ export class FitbitDemo {
                       this.hbAnim = 'heartbeat '+this.animSpeed+'s infinite';
                       this.lineChartData = [ {data:this.pulse, label :""}];
 
-                      const lastSteps = fitbit.steps.reverse()[0];
+                      this.totalSteps = fitbit.steps.reduce( (a,b)=>a+b, 0);
+                      const lastSteps = fitbit.steps.slice(-30).reduce( (a,b)=>a+b, 0);
                       if ( lastSteps > 0 ) {
                           //1750 <= 50 steps
-                          this.walkAnimation.walkAnimSpeed = ''+ (1750 * ( lastSteps / 50))+'ms';
+                          this.walkAnimation.walkAnimSpeed = ''+ (1750 * ( 560 / lastSteps))+'ms';
                       } else {
-                          this.walkAnimation.walkAnimSpeed = '1750ms';
+                          this.walkAnimation.walkAnimSpeed = '18750ms';
                       }
 
 
@@ -90,24 +94,6 @@ export class FitbitDemo {
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
 
-    public randomize():void {
-        let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-        for (let i = 0; i < this.lineChartData.length; i++) {
-            _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-            for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-                _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-            }
-        }
-        this.lineChartData = _lineChartData;
-    }
 
-    // events
-    public chartClicked(e:any):void {
-        console.log(e);
-    }
-
-    public chartHovered(e:any):void {
-        console.log(e);
-    }
 
 }

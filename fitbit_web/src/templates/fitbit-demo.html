@@ -1,4 +1,4 @@
-<h1>Fitbit Demo 2</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Fitbit Demo 2</h1>
 <div *ngIf="!tokenRegistered">
     <h2>Please Authorize </h2>
     <p> Login to fitbit here:
@@ -8,7 +8,8 @@
 </div>
 <div *ngIf="tokenRegistered" class="demo">
     <section class="hr">
-        <div class="heart"  [ngStyle]="{'animation': hbAnim}">{{hr}}</div>
+        <div class="heart"  [ngStyle]="{'animation': hbAnim}"></div>
+        <label>Pulse:</label><output>{{hr}}</output>
         <figure class="pulseChart">
             <base-chart class="chart"
                         [datasets]="lineChartData"
@@ -22,6 +23,7 @@
         </figure>
     </section>
     <section class="walk">
+        <div class="stepsTotal"><label>Total steps:</label><output>{{totalSteps}}</output></div>
         <walk-sample></walk-sample>
     </section>
 

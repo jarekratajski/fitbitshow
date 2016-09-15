@@ -77,8 +77,8 @@ public class FitbitServiceImpl implements FitbitService {
                 (requestHeader, notUsed) -> {
                     System.out.println("code is " + code);
                     ResponseHeader responseHeader = ResponseHeader.OK
-                            .withStatus(200)
-                            .withHeader("Location", "/");
+                            .withStatus(302)
+                            .withHeader("Location", "/index.html");
                     final Either<String, OAuth2AccessToken> token = fitbit.getToken(code);
                     System.out.println("token:" + token);
                     token.forEach(pair -> {
