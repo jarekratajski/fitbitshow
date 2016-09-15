@@ -17,14 +17,14 @@ First create new file in:
 
 Replace in sources text *27S5Y* with your application ID.
 
-*cd fitbit-demo
-*mvn lagom:runAll
+* cd fitbit-demo
+* mvn lagom:runAll
 
 ## Run client
-*cd fitbit_web
-*npm install
-*gulp
-*gulp dev
+* cd fitbit_web
+* npm install
+* gulp
+* gulp dev
 
 
 
