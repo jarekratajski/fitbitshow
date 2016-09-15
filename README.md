@@ -9,12 +9,13 @@
 
 
 ## Run server
-First create File  in fitbit-demo/hello-impl/src/main/resources/fitbit.properties
+First create new file in:
+ *fitbit-demo/hello-impl/src/main/resources/fitbit.properties*
  put one line:
- secret=blablasecret
- ( where secret comes from dev.fitbit.com).
+ *secret=blablasecret*
+ ( where *secret* comes from dev.fitbit.com).
 
- Replace in sources text 27S5Y with your application ID.
+ Replace in sources text *27S5Y* with your application ID.
 
  cd to fitbit-demo
  mvn lagom:runAll
